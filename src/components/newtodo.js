@@ -1,49 +1,48 @@
-import React from 'react';
-import styled from 'styled-components';
+import { useEffect, useState } from "react";
+import './style.css';
 
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-`;
+const New = () => {
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [creation, setCreation] = useState("");
+    const [todos, setTodos] = useState([]);
 
-const Label = styled.label`
-    margin-bottom: 5px;
-`;
+    useEffect(() => {
+        const storedTodos = localStorage.getItem("todos");
+        if (storedTodos)
+        {
+            setTodos(JSON.parse(storedTodos));
+        }
+    }, []);
 
-const Input = styled.input`
-    margin-bottom: 10px;
-    padding: 5px;
-`;
+    const handleSubmit = (e) => {
+        e.preventDefault(); 
+        const newTodo = { title, description, creation };
+        const updatedTodos = [...todos, newTodo];
+        localStorage.setItem("todos", JSON.stringify(updatedTodos));
+    
+        setTitle("");
+        setDescription("");
+        setCreation("");
 
-const Button = styled.button`
-    padding: 8px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+        setTodos(updatedTodos);
 
-    &:hover {
-    background-color: #0056b3;
-    }
-`;
+        window.location.href = "/";
+        };
 
-function NewTodo() {
-    return (
-        <div>
-        <h1>NEW TODO</h1>
-        <Form>
-            <Label htmlFor="title">Title:</Label>
-            <Input type="text" id="title" name="title" />
-            <Label htmlFor="description">Description:</Label>
-            <Input type="text" id="description" name="description" />
-            <Label htmlFor="title">Todo creation time::</Label>
-            <Input type="date" id="date" name="date" />
-        </Form>
-        <Button type="submit">SAVE</Button>
+return (
+    <div>
+        <form className={"form-to-do"} onSubmit={handleSubmit}>
+            <label>Title</label>
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+            <label>Description</label>
+            <input type="text" value={description} onChange={(e) => setDescription(e.target.value)}/>
+            <label>Creation Date</label>
+            <input type="date" value={creation} onChange={(e) => setCreation(e.target.value)}/>
+            </form>
+            <button type="submit" >SEND</button>
         </div>
-);
+    )
 }
 
-export default NewTodo;
+export default New;

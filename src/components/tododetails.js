@@ -1,34 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import './style.css';
 
-function TodoDetail() {
-    const { id } = useParams();
-    const [todo, setTodo] = useState(null);
+const Details = () => {
+  const { id } = useParams();
+  const [todos, setTodos] = useState([]);
+  const [todoSelected, setTodoSelected] = useState(null);
 
-    useEffect(() => {
-    
-    const fetchTodoById = async () => {
+  useEffect(() => {
+    const storedTodos = localStorage.getItem("todos");
+    if (storedTodos) {
+      const parsedTodos = JSON.parse(storedTodos);
+      setTodos(parsedTodos);
 
-    const fakeTodo = { id: id, title: 'Todo1', description: 'Todo de la clase1', createdAt: '2024-03-12' };
-    setTodo(fakeTodo);
-    };
-
-    fetchTodoById();
-    }, 
-    [id]);
-
-    if (!todo) {
-    return <div>Loading...</div>;
+      const selectedIndex = parseInt(id) - 1;
+      const selectedTodo = parsedTodos[selectedIndex];
+      setTodoSelected(selectedTodo);
     }
+  }, [id]);
 
-    return (
+  const back = () => {
+    window.location.href = "/";
+  }
+
+  return (
+    <div>
+      {todoSelected ? (
         <div>
-        <h1>TODO DETAILS</h1>
-        <h3>Title: {todo.title}</h3>
-        <p>Todo creation time: {todo.createdAt}</p>
-        <p>Description: {todo.description}</p>
+          <h1>{todoSelected.title}</h1>
+          <p>Description: {todoSelected.description}</p>
+          <p>Creation date: {todoSelected.creation}</p>
+          <button onClick={back}>BACK TO LIST</button>
+        </div>
+      ) : (
+        <p>Item not found</p>
+      )}
     </div>
-);
+  );
 }
 
-export default TodoDetail;
+export default Details;
+
