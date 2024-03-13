@@ -18,10 +18,10 @@ return (
     <div className={'lists'}>
         {todos.map((todo, index) => (
         <Items to={`/details/${index+1}`} title={todo.title} />
-        ))}
+    ))}
     </div>
 
-    <div className={'button'}> <Link to={'/add'}> <button>NEW TODO</button> </Link> </div>
+    <div className={'button'}> <Link to={'/new'}> <button>NEW TODO</button> </Link> </div>
     </div>
 );
 }

@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-
 const Details = () => {
   const { id } = useParams();
   const [todos, setTodos] = useState([]);
