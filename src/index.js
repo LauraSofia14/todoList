@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import New from '../Components/newtodo.js';
-import Details from '../Components/tododetails.js';
-import List from '../Components/todolist.js';
+import New from './components/newtodo.js';
+import Details from './components/tododetails.js';
+import List from './components/todolist.js';
 
 const router = createBrowserRouter ([
   {
@@ -18,8 +18,8 @@ const router = createBrowserRouter ([
   },
 
   {
-    path: "/add",
-    element: <Add />,
+    path: "/New",
+    element: <New />,
   },
 ])
 

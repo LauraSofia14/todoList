@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import './style.css';
+
 
 const New = () => {
     const [title, setTitle] = useState("");

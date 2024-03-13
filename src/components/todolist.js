@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import './style.css';
-import Items from '..components/todoitems';
+import Items from './todoitems';
 
 function List() {
     const [todos, setTodos] = useState([]);
@@ -18,7 +17,7 @@ return (
     <h1>TODO LIST</h1>
     <div className={'lists'}>
         {todos.map((todo, index) => (
-        <Item to={`/details/${index+1}`} title={todo.title} />
+        <Items to={`/details/${index+1}`} title={todo.title} />
         ))}
     </div>
 
